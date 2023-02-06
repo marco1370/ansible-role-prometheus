@@ -1,0 +1,14 @@
+---
+{{ ansible_managed | comment }}
+
+{% if prometheus_configuration is defined and prometheus_configuration | length > 0 %}
+{{ prometheus_configuration | to_nice_yaml(indent=2) }}
+{% else %}
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+{% endif %}

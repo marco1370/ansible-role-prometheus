@@ -1,0 +1,41 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=prometheus
+Documentation=https://prometheus.io/docs/
+Wants=network-online.target
+After=network-online.target
+AssertFileIsExecutable={{ prometheus_bin_directory }}/prometheus
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutSec=5
+User={{ prometheus_system_user }}
+Group={{ prometheus_system_group }}
+ExecStart={{ prometheus_bin_directory }}/prometheus \
+	--config.file={{ prometheus_config_directory }}/prometheus.yml \
+	--storage.tsdb.path={{ prometheus_storage_dir }} \
+	--web.config.file={{ prometheus_config_directory }}/web-config.yml \
+	--web.console.templates={{ prometheus_config_directory }}/consoles \
+	--web.console.libraries={{ prometheus_config_directory }}/console_libraries \
+	--web.external-url={{ prometheus_external_url }} \
+	--web.listen-address={{ prometheus_listen_address }} \
+{% if prometheus_extra_opts is defined and prometheus_extra_opts | length > 0 %}
+{% for opt in prometheus_extra_opts %}
+	{{ opt }} \
+{% endfor %}
+{% endif %}
+	--log.level={{ prometheus_log_level }} \
+	--log.format={{ prometheus_log_format }}
+PrivateTmp=true
+PrivateDevices=false
+ProtectHome=true
+ProtectSystem=full
+ReadWriteDirectories={{ prometheus_storage_dir }}
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,8 @@
+---
+- ansible.builtin.include_tasks: variables.yml
+
+- ansible.builtin.include_tasks: facts.yml
+
+- ansible.builtin.include_tasks: preflight.yml
+
+- ansible.builtin.include_tasks: install.yml

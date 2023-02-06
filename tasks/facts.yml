@@ -1,0 +1,17 @@
+---
+- name: Check prometheus version
+  ansible.builtin.shell: "{{ prometheus_bin_directory }}/prometheus --version | /usr/bin/head -n 1 | /usr/bin/awk '{print $3}'"
+  args:
+    executable: /bin/bash
+  ignore_errors: true
+  changed_when: false
+  register: prometheus_installed_version
+
+- name: Create temporary directory
+  ansible.builtin.shell: '/usr/bin/mktemp -d'
+  args:
+    executable: /bin/bash
+  ignore_errors: true
+  changed_when: false
+  register: prometheus_tmp_directory
+  when: prometheus_installed_version.stdout < prometheus_version

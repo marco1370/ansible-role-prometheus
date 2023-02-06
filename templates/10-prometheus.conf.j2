@@ -1,0 +1,4 @@
+{{ ansible_managed | comment }}
+
+:programname, isequal, "prometheus" -{{ prometheus_logs_file }}
+& stop

@@ -1,0 +1,13 @@
+{{ ansible_managed | comment }}
+
+{{ prometheus_logs_file }} {
+  daily
+  rotate 7
+  missingok
+  notifempty
+  compress
+  create 0640 root adm
+  postrotate
+    /usr/lib/rsyslog/rsyslog-rotate
+  endscript
+}

@@ -1,0 +1,13 @@
+---
+- name: Restart prometheus
+  ansible.builtin.systemd:
+    name: prometheus.service
+    daemon_reload: true
+    state: restarted
+    enabled: true
+
+- name: Restart rsyslog
+  ansible.builtin.systemd:
+    name: rsyslog.service
+    state: restarted
+    enabled: true

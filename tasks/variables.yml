@@ -1,0 +1,4 @@
+---
+- name: Include variables file
+  ansible.builtin.include_vars:
+    file: main.yml

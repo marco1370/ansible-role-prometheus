@@ -1,0 +1,9 @@
+---
+prometheus_version: latest
+prometheus_log_level: info
+prometheus_log_format: logfmt
+prometheus_listen_address: ':9090'
+prometheus_external_url: 'http://{{ ansible_default_ipv4.address }}{{ prometheus_listen_address }}'
+prometheus_extra_opts: []
+prometheus_configuration: []
+prometheus_web_configuration: []

@@ -1,0 +1,17 @@
+---
+go_arch_map:
+  x86_64: 'amd64'
+  aarch64: 'arm64'
+  armv7l: 'armv7'
+  armv6l: 'armv6'
+
+go_arch: "{{ go_arch_map[ansible_architecture] | default(ansible_architecture) }}"
+
+prometheus_bin_directory: /usr/local/bin
+prometheus_system_user: prometheus
+prometheus_system_group: "{{ prometheus_system_user }}"
+prometheus_certs_dir: /etc/ssl/prometheus
+prometheus_config_directory: /etc/prometheus
+prometheus_storage_dir: /var/lib/prometheus
+prometheus_logs_dir: /var/log
+prometheus_logs_file: "{{ prometheus_logs_dir }}/prometheus.log"

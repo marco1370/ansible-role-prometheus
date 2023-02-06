@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  role_name: prometheus
+  namespace: prometheus
+  author: Anthony Dieperink
+  description: Ansible Role to install the Prometheus binary
+  license: MIT
+  min_ansible_version: 2.10
+
+  platforms:
+    - name: Debian
+      versions:
+        - bullseye
+        - buster
+
+  galaxy_tags:
+    - linux
+    - monitoring
+    - prometheus
